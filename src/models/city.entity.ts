@@ -8,8 +8,8 @@ export class City extends BaseEntity {
   @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: 'text' })
-  description: string;
+  @Column({ type: 'varchar' })
+  country: string;
 
   // one to many entity city and event
   @OneToMany(() => Event, event => event.city)

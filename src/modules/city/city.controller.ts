@@ -1,12 +1,36 @@
-import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
 import { CityService } from './city.service';
+import { CreateCityDto } from './dto/create_city.dto';
 
 @Controller('city')
 export class CityController {
     constructor(private readonly cityService: CityService) {}
+    
+    // get all city with pagination and limit from query
+    @Get('/')
+    public async getAllCity(@Param('page') page: number, @Param('limit') limit: number){
+        return {
+            data: await this.cityService.getAllCity(page, limit)
+        }
+    }
 
     @Get(':id')
     public async getById(@Param('id', ParseUUIDPipe) id: string) {
-        return await this.cityService.getById(id);
+        return {
+            data: await this.cityService.getById(id)
+        }
+    }
+
+    @Post('/')
+    public async createCity(@Body() body: CreateCityDto) {
+        try {
+            const city = await this.cityService.createCity(body);
+            return {
+                message: "success",
+                data: city
+            }
+        } catch (error) {
+            throw error;
+        }
     }
 }
