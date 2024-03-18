@@ -1,13 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { error } from 'console';
 import { City } from 'src/models/city.entity';
 import { Repository } from 'typeorm';
-import { CreateCityDto } from './dto/create_city.dto';
+import { CreateCityDto } from './dto/create-city.dto';
 
 @Injectable()
 export class CityService {
-    constructor(@InjectRepository(City) private cityRepository: Repository<City>) {}
+    constructor(
+        @InjectRepository(City) private cityRepository: Repository<City>
+    ) {}
 
     // get all city with pagination
     public async getAllCity(page = 1, limit = 10): Promise<City[]> {

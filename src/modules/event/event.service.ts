@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Event } from 'src/models/event.entity';
 import { Repository } from 'typeorm';
-import { CreateEventDto } from './dto/create_event.dto';
+import { CreateEventDto } from './dto/create-event.dto';
 import { CityService } from '../city/city.service';
 
 @Injectable()
@@ -40,7 +40,6 @@ export class EventService {
     public async createEvent(data: CreateEventDto): Promise<Event> {
         // check cityId is exist 
         await this.cityService.getById(data.cityId);
-        
         const event = this.eventRepository.create(data);
         await this.eventRepository.save(event);
         return event;

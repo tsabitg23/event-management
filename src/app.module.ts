@@ -8,6 +8,11 @@ import { AppService } from './app.service';
 import { CityModule } from './modules/city/city.module';
 import { EventModule } from './modules/event/event.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import {
+  utilities as nestWinstonModuleUtilities,
+  WinstonModule,
+} from 'nest-winston';
+import * as winston from 'winston';
 
 @Module({
   imports: [
@@ -46,6 +51,16 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
         };
       },
       inject: [ConfigService],
+    }),
+    WinstonModule.forRoot({
+      transports: [
+        new winston.transports.Console({
+          format: winston.format.combine(
+            winston.format.timestamp(),
+            nestWinstonModuleUtilities.format.nestLike(),
+          ),
+        }),
+      ],
     }),
     CityModule,
     EventModule,
