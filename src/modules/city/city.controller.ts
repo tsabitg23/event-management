@@ -6,7 +6,6 @@ import { CreateCityDto } from './dto/create_city.dto';
 export class CityController {
     constructor(private readonly cityService: CityService) {}
     
-    // get all city with pagination and limit from query
     @Get('/')
     public async getAllCity(@Param('page') page: number, @Param('limit') limit: number){
         return {
