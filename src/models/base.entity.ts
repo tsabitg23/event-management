@@ -1,9 +1,8 @@
-require("dotenv").config();
 import {
-  PrimaryGeneratedColumn,
   Column,
-  UpdateDateColumn,
   CreateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 export abstract class BaseEntity {

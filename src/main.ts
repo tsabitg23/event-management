@@ -1,17 +1,17 @@
+import { ValidationPipe } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from "@nestjs/platform-fastify";
-import { Logger, ValidationPipe } from "@nestjs/common";
-import { AppModule } from "./app.module";
-import { ConfigService } from "@nestjs/config";
-import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import {
-  utilities as nestWinstonModuleUtilities,
   WinstonModule,
+  utilities as nestWinstonModuleUtilities,
 } from "nest-winston";
 import * as winston from "winston";
+import { AppModule } from "./app.module";
 import { LoggerMiddleware } from "./middleware/logger";
 import { LoggerFilter } from "./utils/logger-exception.filter";
 

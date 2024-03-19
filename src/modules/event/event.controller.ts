@@ -6,8 +6,8 @@ import {
   ParseUUIDPipe,
   Post,
 } from "@nestjs/common";
-import { EventService } from "./event.service";
 import { CreateEventDto } from "./dto/create-event.dto";
+import { EventService } from "./event.service";
 
 @Controller("event")
 export class EventController {
@@ -29,14 +29,10 @@ export class EventController {
 
   @Post("/")
   public async createEvent(@Body() body: CreateEventDto) {
-    try {
-      const city = await this.eventService.createEvent(body);
-      return {
-        message: "success",
-        data: city,
-      };
-    } catch (error) {
-      throw error;
-    }
+    const city = await this.eventService.createEvent(body);
+    return {
+      message: "success",
+      data: city,
+    };
   }
 }

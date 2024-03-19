@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Logger,
   Param,
   ParseUUIDPipe,
   Post,
@@ -31,14 +30,10 @@ export class CityController {
 
   @Post("/")
   public async createCity(@Body() body: CreateCityDto) {
-    try {
-      const city = await this.cityService.createCity(body);
-      return {
-        message: "success",
-        data: city,
-      };
-    } catch (error) {
-      throw error;
-    }
+    const city = await this.cityService.createCity(body);
+    return {
+      message: "success",
+      data: city,
+    };
   }
 }

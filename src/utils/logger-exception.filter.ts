@@ -1,7 +1,7 @@
 import {
-  ExceptionFilter,
-  Catch,
   ArgumentsHost,
+  Catch,
+  ExceptionFilter,
   HttpException,
   Logger,
 } from "@nestjs/common";
@@ -10,7 +10,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 @Catch()
 export class LoggerFilter implements ExceptionFilter {
   private logger = new Logger(LoggerFilter.name);
-  catch(exception: any, host: ArgumentsHost) {
+  catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<FastifyReply>();
     const request = ctx.getRequest<FastifyRequest>();
