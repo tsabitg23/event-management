@@ -1,1 +1,1 @@
-yarn test && yarn pretty-commit
+yarn test && yarn lint-staged && yarn pretty-commit
