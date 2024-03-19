@@ -17,20 +17,21 @@ export class EventService {
     page?: number,
     limit?: number,
   ): Promise<{ data: Event[]; totalCount: number }> {
-    let findParam: FindManyOptions<Event> | undefined;
-    if (page && limit) {
-      findParam = {
-        skip: (page - 1) * limit,
-        take: limit,
-      };
-    }
-    const [events, totalCount] = await this.eventRepository.findAndCount({
+    const findOptions: FindManyOptions<Event> = {
       relations: ["city"],
       order: {
         createDateTime: "DESC",
       },
-      ...findParam,
-    });
+    };
+
+    // Apply pagination if provided
+    if (page && limit) {
+      findOptions.skip = (page - 1) * limit;
+      findOptions.take = limit;
+    }
+
+    const [events, totalCount] =
+      await this.eventRepository.findAndCount(findOptions);
 
     return {
       data: events,

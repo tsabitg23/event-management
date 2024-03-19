@@ -8,6 +8,7 @@ import {
 } from "@nestjs/common";
 import {
   ApiBody,
+  ApiOperation,
   ApiParam,
   ApiQuery,
   ApiResponse,
@@ -22,13 +23,17 @@ import { CreateCityDto } from "./dto/create-city.dto";
 export class CityController {
   constructor(private readonly cityService: CityService) {}
 
-  @ApiResponse({
-    status: 200,
-    description: "Successfully get all city",
-    type: GetAllCityResponseDto,
-  })
   @ApiQuery({ name: "page", required: false, type: Number, example: 1 })
   @ApiQuery({ name: "limit", required: false, type: Number, example: 10 })
+  @ApiResponse({
+    status: 200,
+    description: "Successfully get all cities",
+    type: GetAllCityResponseDto,
+  })
+  @ApiOperation({
+    summary: "Get all cities",
+    description: "Get all cities or with pagination",
+  })
   @Get("/")
   public async getAllCity(
     @Param("page") page?: number,
@@ -37,13 +42,23 @@ export class CityController {
     return await this.cityService.getAllCity(page, limit);
   }
 
+  @ApiParam({
+    name: "id",
+    required: true,
+    type: String,
+    example: "e2d4c3b6-a2e0-4dbb-bcd9-cef70e9ea841",
+    description: "City ID",
+  })
   @ApiResponse({
     status: 200,
     description: "Successfully get city by id",
     type: GetCityResponseDto,
   })
   @ApiResponse({ status: 404, description: "City not found" })
-  @ApiParam({ name: "id", required: true, type: String })
+  @ApiOperation({
+    summary: "Get city by id",
+    description: "Return single data of city by id",
+  })
   @Get(":id")
   public async getById(
     @Param("id", ParseUUIDPipe) id: string,
@@ -53,16 +68,17 @@ export class CityController {
     };
   }
 
+  @ApiBody({
+    type: CreateCityDto,
+    description: "Create a new city",
+  })
   @ApiResponse({
     status: 201,
     description: "Successfully created new Data",
     type: GetCityResponseDto,
   })
   @ApiResponse({ status: 400, description: "Bad Request" })
-  @ApiBody({
-    type: CreateCityDto,
-    description: "Create a new city",
-  })
+  @ApiOperation({ summary: "Create city", description: "Create new city data" })
   @Post("/")
   public async createCity(@Body() body: CreateCityDto) {
     const city = await this.cityService.createCity(body);
