@@ -37,7 +37,7 @@ $ yarn install
 
 ```bash
 # BEFORE INSTALL Create .env file by copy .env_example
-cp .env_example .env
+$ cp .env_example .env
 
 # development
 $ yarn run start
