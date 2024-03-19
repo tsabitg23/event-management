@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 
 export async function LoggerMiddleware(
-  request: Request,
-  response: Response,
+  request: Partial<Request>,
+  response: Partial<Response>,
   next: NextFunction,
 ): Promise<void> {
   const { body, method, originalUrl, headers } = request;
