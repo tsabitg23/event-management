@@ -31,6 +31,7 @@ export class EventService {
 
     public async getById(id: string): Promise<Event> {
         const event = await this.eventRepository.findOne({
+            relations: ['city'],
             where: {
                 id
             }

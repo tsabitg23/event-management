@@ -35,19 +35,12 @@ import * as winston from 'winston';
       useFactory: (configService: ConfigService) => {
         return {
           type: configService.get<'postgres'>('database.client'),
-          host: configService.get<string>('database.host'),
-          port: configService.get<number>('database.port'),
-          username: configService.get<string>('database.username'),
-          password: configService.get<string>('database.password'),
           database: configService.get<string>('database.name'),
           entities: [],
           synchronize: configService.get<boolean>('database.synchronize') ?? false,
           autoLoadEntities: true,
           logging: false,
           namingStrategy: new SnakeNamingStrategy(),
-          extra: {
-            max: configService.get<number>('database.max_pool') ?? 10,
-          },
         };
       },
       inject: [ConfigService],
