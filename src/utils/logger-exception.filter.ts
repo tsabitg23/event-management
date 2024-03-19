@@ -15,25 +15,24 @@ export class LoggerFilter implements ExceptionFilter {
     const response = ctx.getResponse<FastifyReply>();
     const request = ctx.getRequest<FastifyRequest>();
     const status = exception.getStatus ? exception.getStatus() : 500;
-    const message = exception.message || "Internal server error";
+    const errorResponse = exception.getResponse();
     const stack = exception.stack;
 
-    this.logger.error(
-      `${request.method} ${request.url}`,
-      JSON.stringify({
-        statusCode: status,
-        timestamp: new Date().toISOString(),
-        path: request.url,
-        message,
-        stack,
-      }),
-    );
-
-    response.code(status).send({
+    const loggerData = {
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
-      message,
+      errorResponse,
+      stack,
+    };
+
+    this.logger.error(
+      `${request.method} ${request.url}`,
+      JSON.stringify(loggerData),
+    );
+
+    response.code(status).send({
+      ...loggerData,
       stack: process.env.NODE_ENV === "production" ? "PROTECTED" : stack,
     });
   }
