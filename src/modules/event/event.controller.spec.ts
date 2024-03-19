@@ -98,6 +98,15 @@ describe('EventController', () => {
     expect(selectedEvent).toStrictEqual({data: eventsData[0]});
   });
 
+  it('should return error if event not found', async () => {
+    jest.spyOn(controller, 'getById').mockRejectedValue(new Error('Event not found'));
+    try {
+      await controller.getById('2f456a32-ef08-4bdf-b812-9cf0008cf2ad');
+    } catch (error) {
+      expect(error.message).toBe('Event not found');
+    }
+  });
+
   it('should create event', async () => {
     const result = {
       message: "success",
