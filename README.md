@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+NestJS Backend for Event Managment Application. Made for practice and coding assignment.
 
 ## Installation
 
@@ -32,9 +32,13 @@
 $ yarn install
 ```
 
+
 ## Running the app
 
 ```bash
+# BEFORE INSTALL Create .env file by copy .env_example
+cp .env_example .env
+
 # development
 $ yarn run start
 
@@ -43,6 +47,13 @@ $ yarn run start:dev
 
 # production mode
 $ yarn run start:prod
+```
+
+## API Docs
+API documentation using Swagger can be accessed after running the application with the link below
+```bash
+http://localhost:{PORT}/docs
+# Default port is 3000
 ```
 
 ## Test
@@ -57,6 +68,11 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
+
+## Extra
+Added extra feature for quality of life
+- Precommit prettier lint
+- Check commit message with `commitlint`
 
 ## Support
 

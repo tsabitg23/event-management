@@ -1,5 +1,11 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Logger } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  Logger,
+} from "@nestjs/common";
+import { FastifyReply, FastifyRequest } from "fastify";
 
 @Catch()
 export class LoggerFilter implements ExceptionFilter {
@@ -9,7 +15,7 @@ export class LoggerFilter implements ExceptionFilter {
     const response = ctx.getResponse<FastifyReply>();
     const request = ctx.getRequest<FastifyRequest>();
     const status = exception.getStatus ? exception.getStatus() : 500;
-    const message = exception.message || 'Internal server error';
+    const message = exception.message || "Internal server error";
     const stack = exception.stack;
 
     this.logger.error(
@@ -28,7 +34,7 @@ export class LoggerFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       path: request.url,
       message,
-      stack: process.env.NODE_ENV === 'production' ? 'PROTECTED' : stack,
+      stack: process.env.NODE_ENV === "production" ? "PROTECTED" : stack,
     });
   }
 }
