@@ -6,10 +6,8 @@ import { CreateEventDto } from './dto/create-event.dto';
 export class EventController {
     constructor(private readonly eventService: EventService) {}
     @Get('/')
-    public async getAllCity(@Param('page') page: number, @Param('limit') limit: number){
-        return {
-            data: await this.eventService.getAllEvent(page, limit)
-        }
+    public async getAllEvent(@Param('page') page: number, @Param('limit') limit: number){
+        return await this.eventService.getAllEvent(page, limit)
     }
 
     @Get(':id')
@@ -20,7 +18,7 @@ export class EventController {
     }
 
     @Post('/')
-    public async createCity(@Body() body: CreateEventDto) {
+    public async createEvent(@Body() body: CreateEventDto) {
         try {
             const city = await this.eventService.createEvent(body);
             return {

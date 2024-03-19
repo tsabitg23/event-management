@@ -13,13 +13,17 @@ export class EventService {
     ) {}
 
     // get all event with pagination
-    public async getAllEvent(page = 1, limit = 10): Promise<Event[]> {
+    public async getAllEvent(page = 1, limit = 10): Promise<({data: Event[], totalCount:number})> {
         const events = await this.eventRepository.find({
             take: limit,
             skip: (page - 1) * limit
         });
-
-        return events;
+        const totalCount = await this.eventRepository.count();
+        
+        return {
+            data: events,
+            totalCount
+        };
     }
 
     public async getById(id: string): Promise<Event> {
