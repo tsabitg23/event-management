@@ -8,9 +8,8 @@ export class CityController {
     
     @Get('/')
     public async getAllCity(@Param('page') page: number, @Param('limit') limit: number){
-        return {
-            data: await this.cityService.getAllCity(page, limit)
-        }
+        return await this.cityService.getAllCity(page, limit)
+        
     }
 
     @Get(':id')

@@ -11,13 +11,16 @@ export class CityService {
     ) {}
 
     // get all city with pagination
-    public async getAllCity(page = 1, limit = 10): Promise<City[]> {
-        const cities = await this.cityRepository.find({
+    public async getAllCity(page = 1, limit = 10): Promise<({data: City[], totalCount: number})> {
+        const [cities, totalCount] = await this.cityRepository.findAndCount({
             take: limit,
             skip: (page - 1) * limit
         });
 
-        return cities;
+        return {
+            data: cities,
+            totalCount
+        };
     }
 
     public async getById(id: string): Promise<City> {

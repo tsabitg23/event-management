@@ -41,6 +41,14 @@ describe('CityService', () => {
     expect(service).toBeDefined();
   });
 
+  it('should get all city', async () => {
+    // Mock the repository methods to return the mocked data
+    jest.spyOn(cityRepository, 'findAndCount').mockResolvedValue([[citiesData], 1]);
+
+    const result = await service.getAllCity(1, 10);
+    expect(result).toEqual({data: [citiesData], totalCount: 1});
+  })
+
   it('should get city by id', async () => {
      // Mock the repository methods to return the mocked data
      jest.spyOn(cityRepository, 'findOne').mockResolvedValue(citiesData);
