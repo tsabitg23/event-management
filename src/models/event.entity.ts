@@ -13,5 +13,5 @@ export class Event extends BaseEntity {
   
   //Many to one entity event and city
   @ManyToOne(() => City, city => city.events)
-  city: City;
+  city?: City;
 }

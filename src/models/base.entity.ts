@@ -20,7 +20,7 @@ export abstract class BaseEntity {
     lastChangedDateTime: Date;
 
     @Column({ type: 'varchar', length: 300, default: null })
-    lastChangedBy: string;
+    lastChangedBy: string | null;
 
     @Column({ type: 'varchar', length: 300, nullable: true })
     internalComment: string | null;

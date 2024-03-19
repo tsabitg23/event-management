@@ -9,11 +9,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<FastifyReply>();
     const request = ctx.getRequest<FastifyRequest>();
     const status = exception.getStatus();
-    const errorResponse = exception.getResponse() as Record<string, any>;
+    const errorResponse:(string | Record<string, any>) = exception.getResponse();
     const errorLog = {
       statusCode: status,
       timestamp: new Date().toISOString(),
-      ...errorResponse
+      error: errorResponse
     };
     this.logger.error('HttpExceptionFilter', errorLog);
     response

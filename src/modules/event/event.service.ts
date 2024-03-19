@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Event } from 'src/models/event.entity';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Event } from '../../models/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { CityService } from '../city/city.service';
 
@@ -14,11 +14,14 @@ export class EventService {
 
     // get all event with pagination
     public async getAllEvent(page = 1, limit = 10): Promise<({data: Event[], totalCount:number})> {
-        const events = await this.eventRepository.find({
+        const [events, totalCount] = await this.eventRepository.findAndCount({
+            relations: ['city'],
             take: limit,
-            skip: (page - 1) * limit
+            skip: (page - 1) * limit,
+            order: {
+                createDateTime: 'DESC'
+            }
         });
-        const totalCount = await this.eventRepository.count();
         
         return {
             data: events,
@@ -43,8 +46,9 @@ export class EventService {
     // create new data
     public async createEvent(data: CreateEventDto): Promise<Event> {
         // check cityId is exist 
-        await this.cityService.getById(data.cityId);
+        const city = await this.cityService.getById(data.cityId);
         const event = this.eventRepository.create(data);
+        event.city = city;
         await this.eventRepository.save(event);
         return event;
     }

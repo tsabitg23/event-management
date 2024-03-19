@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { City } from 'src/models/city.entity';
+import { City } from '../../models/city.entity';
 import { Repository } from 'typeorm';
 import { CreateCityDto } from './dto/create-city.dto';
 
