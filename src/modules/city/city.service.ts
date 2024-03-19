@@ -47,12 +47,8 @@ export class CityService {
 
   // create new data
   public async createCity(data: CreateCityDto): Promise<City> {
-    try {
-      const city = this.cityRepository.create(data);
-      await this.cityRepository.save(city);
-      return city;
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    const city = this.cityRepository.create(data);
+    await this.cityRepository.save(city);
+    return city;
   }
 }

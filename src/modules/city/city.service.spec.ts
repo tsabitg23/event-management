@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { CityService } from "./city.service";
 import { getRepositoryToken } from "@nestjs/typeorm";
-import { City } from "../../models/city.entity";
 import { Repository } from "typeorm";
+import { City } from "../../models/city.entity";
+import { CityService } from "./city.service";
 
 // Mock data for cities
 const citiesData: City = {
@@ -54,9 +54,16 @@ describe("CityService", () => {
   it("should get city by id", async () => {
     // Mock the repository methods to return the mocked data
     jest.spyOn(cityRepository, "findOne").mockResolvedValue(citiesData);
-
     const result = await service.getById(citiesData.id);
     expect(result).toEqual(citiesData);
+
+    // expect error when get by random uuid
+    jest.spyOn(cityRepository, "findOne").mockResolvedValue(null);
+    try {
+      await service.getById("random-uuid");
+    } catch (error) {
+      expect(error.message).toEqual("City not found");
+    }
   });
 
   it("should create city", async () => {
