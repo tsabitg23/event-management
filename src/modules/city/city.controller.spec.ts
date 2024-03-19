@@ -41,6 +41,7 @@ describe('CityController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+    expect(service).toBeDefined();
   });
 
   it('should get all city', async () => {
