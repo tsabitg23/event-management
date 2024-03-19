@@ -13,7 +13,7 @@ import {
 } from 'nest-winston';
 import * as winston from 'winston';
 import { LoggerMiddleware } from './middleware/logger';
-import { HttpExceptionFilter } from './utils/http-exception.filter';
+import { LoggerFilter } from './utils/logger-exception.filter';
 
 const DEFAULT_PORT = 3000;
 
@@ -60,7 +60,8 @@ async function bootstrap() {
   app.use(LoggerMiddleware.bind({
     logger,
   }));
-  app.useGlobalFilters(new HttpExceptionFilter());
+  // app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new LoggerFilter());
     
   // PORT
   const configService = app.get<ConfigService>(ConfigService);

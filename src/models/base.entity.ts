@@ -1,3 +1,4 @@
+require('dotenv').config();
 import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 
 export abstract class BaseEntity {
@@ -10,13 +11,13 @@ export abstract class BaseEntity {
     @Column({ type: 'boolean', default: false })
     isArchived: boolean;
 
-    @CreateDateColumn({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+    @CreateDateColumn({ type: process.env.DATABASE_CLIENT === 'sqlite' ? 'datetime' : 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
     createDateTime: Date;
 
     @Column({ type: 'varchar', length: 300, default: 'system' })
     createdBy: string;
 
-    @UpdateDateColumn({ type: 'datetime', default: null })
+    @UpdateDateColumn({ type: process.env.DATABASE_CLIENT === 'sqlite' ? 'datetime' : 'timestamptz', default: null })
     lastChangedDateTime: Date;
 
     @Column({ type: 'varchar', length: 300, default: null })
