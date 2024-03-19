@@ -61,6 +61,21 @@ http://localhost:{PORT}/docs
 http://localhost:3000/docs-json
 ```
 
+## Database Migration and Seeding
+
+Migration using auto syncronize from Typeorm. To disable update `.env` file
+
+```
+TYPEORM_SYNCHRONIZE=false
+```
+
+To run seeder, run this in root project
+
+```bash
+# Run database seeding
+$ yarn run seed:run
+```
+
 ## Test
 
 ```bash
