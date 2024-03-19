@@ -1,17 +1,13 @@
-import * as request from "supertest";
-import { Test } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
+import { Test } from "@nestjs/testing";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import * as request from "supertest";
+import { Repository } from "typeorm";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { City } from "../src/models/city.entity";
+import { Event } from "../src/models/event.entity";
 import { CityModule } from "../src/modules/city/city.module";
 import { EventModule } from "../src/modules/event/event.module";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import * as Joi from "joi";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import appConfig from "../src/config/appConfig";
-import { SnakeNamingStrategy } from "typeorm-naming-strategies";
-import { Repository } from "typeorm";
-import { Event } from "../src/models/event.entity";
-import { City } from "../src/models/city.entity";
-import exp from "constants";
 
 const sampleCityData = {
   name: "Berlin",
