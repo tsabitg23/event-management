@@ -29,9 +29,9 @@ NestJS Backend for Event Managment Application. Made for practice and coding ass
 ## Installation
 
 ```bash
+# Recommended to use node ^18.18.0
 $ yarn install
 ```
-
 
 ## Running the app
 
@@ -50,10 +50,15 @@ $ yarn run start:prod
 ```
 
 ## API Docs
+
 API documentation using Swagger can be accessed after running the application with the link below
+
 ```bash
 http://localhost:{PORT}/docs
 # Default port is 3000
+
+#To generate and download a Swagger JSON file, navigate to
+http://localhost:3000/docs-json
 ```
 
 ## Test
@@ -70,7 +75,9 @@ $ yarn run test:cov
 ```
 
 ## Extra
+
 Added extra feature for quality of life
+
 - Precommit prettier lint
 - Check commit message with `commitlint`
 

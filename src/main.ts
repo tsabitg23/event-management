@@ -50,6 +50,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle("Event Manager API Spec")
     .setDescription("For hiring purposes")
+    .addServer("http://localhost:3000/", "Local environment")
     .setVersion("1.0")
     .addTag("event")
     .build();

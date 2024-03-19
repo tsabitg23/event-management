@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
+import { FindManyOptions, Repository } from "typeorm";
 import { Event } from "../../models/event.entity";
-import { CreateEventDto } from "./dto/create-event.dto";
 import { CityService } from "../city/city.service";
+import { CreateEventDto } from "./dto/create-event.dto";
 
 @Injectable()
 export class EventService {
@@ -14,16 +14,22 @@ export class EventService {
 
   // get all event with pagination
   public async getAllEvent(
-    page = 1,
-    limit = 10,
+    page?: number,
+    limit?: number,
   ): Promise<{ data: Event[]; totalCount: number }> {
+    let findParam: FindManyOptions<Event> | undefined;
+    if (page && limit) {
+      findParam = {
+        skip: (page - 1) * limit,
+        take: limit,
+      };
+    }
     const [events, totalCount] = await this.eventRepository.findAndCount({
       relations: ["city"],
-      take: limit,
-      skip: (page - 1) * limit,
       order: {
         createDateTime: "DESC",
       },
+      ...findParam,
     });
 
     return {

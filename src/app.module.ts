@@ -1,18 +1,17 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import * as Joi from "joi";
-import appConfig from "./config/appConfig";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import * as Joi from "joi";
+import {
+  WinstonModule,
+  utilities as nestWinstonModuleUtilities,
+} from "nest-winston";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import * as winston from "winston";
 import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
+import appConfig from "./config/appConfig";
 import { CityModule } from "./modules/city/city.module";
 import { EventModule } from "./modules/event/event.module";
-import { SnakeNamingStrategy } from "typeorm-naming-strategies";
-import {
-  utilities as nestWinstonModuleUtilities,
-  WinstonModule,
-} from "nest-winston";
-import * as winston from "winston";
 
 @Module({
   imports: [
@@ -60,6 +59,6 @@ import * as winston from "winston";
     EventModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}

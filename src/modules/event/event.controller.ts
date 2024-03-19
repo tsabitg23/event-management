@@ -6,9 +6,11 @@ import {
   ParseUUIDPipe,
   Post,
 } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { CreateEventDto } from "./dto/create-event.dto";
 import { EventService } from "./event.service";
 
+@ApiTags("Event")
 @Controller("event")
 export class EventController {
   constructor(private readonly eventService: EventService) {}
